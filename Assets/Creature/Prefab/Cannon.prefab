@@ -424,7 +424,6 @@ MonoBehaviour:
   patrolable: 0
   rotateable: 1
   attackable: 1
-  skillable: 0
   VisionRange: 15
   MinSensingRange: 15
   TargetList: []
@@ -434,31 +433,14 @@ MonoBehaviour:
   TerritoryRange: 0
   Territory: {fileID: 0}
   stepIndex: 0
-  moveForward: 0
   patrolBreakTime: 0
   PatrolSteps: []
-  MovePos: {x: 0, y: 0, z: 0}
   AttackDamage: 1
   AttackRange: 15
-  SkillDamage: 0
-  SkillRange: 0
   AttackRate: 4
-  SkillCoolDown: 0
   attackIsOver: 1
   Assaults: []
-  nextAttack: 0
-  nextSkill: 0
-  nextHurt: 0
-  recievedDamage: 0
   hurtRate: 0.1
-  deadPartical: {fileID: 0}
-  hurtMat: {fileID: 0}
-  deadMat: {fileID: 0}
-  isMoving: 0
-  idle: 0
-  attack: 0
-  skill: 0
-  player: {fileID: 0}
   anim: {fileID: 1711294790741398524}
   ShootData:
     name: Shoot
@@ -767,6 +749,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2de46cbd9a7ea4262a7305f9fe4fa33b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2de46cbd9a7ea4262a7305f9fe4fa33b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2de46cbd9a7ea4262a7305f9fe4fa33b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2de46cbd9a7ea4262a7305f9fe4fa33b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -805,6 +799,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2de46cbd9a7ea4262a7305f9fe4fa33b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2de46cbd9a7ea4262a7305f9fe4fa33b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8604576316527172084, guid: 2de46cbd9a7ea4262a7305f9fe4fa33b, type: 3}
       propertyPath: m_Layer
@@ -933,6 +931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageMaterial: {fileID: 2100000, guid: c33b173d7bd434a68b2b80531d0b0bc4, type: 2}
   damageDuration: 0.1
+  mats_o: []
 --- !u!1 &9144825206900762125 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2de46cbd9a7ea4262a7305f9fe4fa33b, type: 3}
