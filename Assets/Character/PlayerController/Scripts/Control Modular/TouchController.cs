@@ -36,7 +36,8 @@ public class TouchController : MonoBehaviour
     void Update()
     {
         
-        if (starterAssetsInputs.touch) {
+        if (starterAssetsInputs.touch) 
+        {
             MousePosition();
             SitDown();
         }

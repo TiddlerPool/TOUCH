@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+﻿ using MyAudio;
+ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -84,7 +85,7 @@ namespace StarterAssets
         private float _cinemachineTargetPitch;
 
         // player
-        private float _speed;
+        [SerializeField]private float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
@@ -113,8 +114,9 @@ namespace StarterAssets
         [SerializeField]
         private GameObject _aimCamera;
 
-        [SerializeField]
-        private ParticleSystem _sprintPartical;
+        [SerializeField] private AudioSource _sprintAudio;
+        [SerializeField]    private ParticleSystem _sprintPartical;
+        
 
         [SerializeField]
         private Transform head;
@@ -175,6 +177,12 @@ namespace StarterAssets
                 GroundedCheck();
                 Move();
                 OnSprint();
+            }
+            else
+            {
+                _sprintPartical.Stop();
+                _sprintAudio.Stop();
+                _speed = 0f;
             }
         }
 
@@ -406,17 +414,29 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
+        private bool audioPlayed;
         private void OnSprint()
         {
             if (_speed > MoveSpeed && _input.sprint)
             {
                 GetComponent<DataController>().ApplyFuel(0.1f);
-                
                 _sprintPartical.Play();
             }
             else
             {
                 _sprintPartical.Stop();
+
+            }
+
+            if (_sprintPartical.isPlaying && !audioPlayed)
+            {
+                _sprintAudio.Play();
+                audioPlayed = true;
+            }
+            else if(!_sprintPartical.isPlaying)
+            {
+                _sprintAudio.Stop();
+                audioPlayed = false;
             }
         }
 

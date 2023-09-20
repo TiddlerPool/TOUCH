@@ -269,6 +269,7 @@ MonoBehaviour:
   playerTrans: {fileID: 0}
   debug: 0
   reachDsitance: 1
+  audioName: touchitem
   topLight: {fileID: 6537008800153910746, guid: 4c11e81599fe542ebad07be0ed7bdcb8, type: 3}
   tempLight: {fileID: 0}
   anim: {fileID: 7183704550018051181}

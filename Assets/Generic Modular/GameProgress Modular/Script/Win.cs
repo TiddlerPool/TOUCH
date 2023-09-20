@@ -9,7 +9,12 @@ public class Win : MonoBehaviour
     {
         if (other.CompareTag("Player")&& !DataController.isWin)
         {
-            DataController.isWin = true;
+            Invoke("Pass", 0.75f);
         }
+    }
+
+    private void Pass()
+    {
+        DataController.isWin = true;
     }
 }

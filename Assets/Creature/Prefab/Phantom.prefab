@@ -389,6 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animState: 0
+  enemyName: Phantom
   health: 10
   maxHealth: 0
   isDead: 0
@@ -397,7 +398,6 @@ MonoBehaviour:
   patrolable: 0
   rotateable: 1
   attackable: 1
-  skillable: 1
   VisionRange: 50
   MinSensingRange: 50
   TargetList: []
@@ -407,23 +407,14 @@ MonoBehaviour:
   TerritoryRange: 0
   Territory: {fileID: 0}
   stepIndex: 0
-  moveForward: 0
   patrolBreakTime: 0
   PatrolSteps: []
-  MovePos: {x: 0, y: 0, z: 0}
   AttackDamage: 1
   AttackRange: 1
   AttackRate: 2
-  SkillCoolDown: 6
   attackIsOver: 1
   Assaults: []
-  nextHurt: 0
-  recievedDamage: 0
   hurtRate: 0.1
-  deadPartical: {fileID: 0}
-  hurtMat: {fileID: 0}
-  deadMat: {fileID: 0}
-  player: {fileID: 0}
   anim: {fileID: 717933663314646747}
   Indicator: {fileID: 315902395}
   dashTail: {fileID: 3900931222138630317}

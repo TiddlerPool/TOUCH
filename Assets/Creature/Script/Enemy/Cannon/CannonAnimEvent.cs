@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
-
+using MyAudio;
 public class CannonAnimEvent : MonoBehaviour
 {
     public Cannon self;
@@ -20,6 +20,7 @@ public class CannonAnimEvent : MonoBehaviour
     public void Fire()
     {
         self.FireBeam();
+        AudioManager.PlayAudio("shield3");
     }
 
     public void Reborn()

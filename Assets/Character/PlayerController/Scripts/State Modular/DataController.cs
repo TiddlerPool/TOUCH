@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyAudio;
 using UnityEngine;
 using UnityEngine.UI;
 using StarterAssets;
+using UnityEngine.InputSystem;
 
 public class DataController : MonoBehaviour , IDamageable
 {
@@ -25,6 +27,8 @@ public class DataController : MonoBehaviour , IDamageable
 
     private RectMask2D healthBarMask;
     private RectMask2D sanBarMask;
+
+    private PlayerInput inputManager;
 
     private float healthBarStartWidth;
 
@@ -60,6 +64,7 @@ public class DataController : MonoBehaviour , IDamageable
         healthBarStartWidth = healthBar.sizeDelta.x;
         healthBarMask = healthBar.GetComponent<RectMask2D>();
         sanBarMask = sanBar.GetComponent<RectMask2D>();
+        inputManager = FindObjectOfType<PlayerInput>();
         script.enabled = true;
         DeathUI.SetActive(false);
         WinUI.SetActive(false);
@@ -86,7 +91,7 @@ public class DataController : MonoBehaviour , IDamageable
             script.enabled = false;
             isDead = false;
             Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
+            inputManager.SwitchCurrentActionMap("UI");
             WinUI.SetActive(true);
         }
 
@@ -185,8 +190,8 @@ public class DataController : MonoBehaviour , IDamageable
             dead.Play();
             DeathUI.SetActive(true);
             script.enabled = false;
-            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
+            inputManager.SwitchCurrentActionMap("UI");
         }
     }
 
@@ -197,6 +202,7 @@ public class DataController : MonoBehaviour , IDamageable
             {
                 ApplyDamage(DamageValue);
                 HurtEvents.current.HurtBegin(id);
+                AudioManager.PlayAudio("hit");
                 isHurt = true;
             }
         }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using MyAudio;
 public class Shield : MonoBehaviour
 {
     public GameObject player;
@@ -17,7 +17,8 @@ public class Shield : MonoBehaviour
         GameObject ReBullet = Instantiate(bullet.gameObject, refPoint.position, Quaternion.LookRotation(aimDir, Vector3.up));
         ReBullet.GetComponent<Bullet>().Damage = bullet.Damage * 2f;
         ReBullet.GetComponent<Bullet>().shooterID = 1;
-        //Instantiate(boundPartical, refPoint.position, Quaternion.LookRotation(aimDir, Vector3.up));
+        AudioManager.PlayAudio("shield1");
+        Instantiate(boundPartical, refPoint.position, Quaternion.LookRotation(aimDir, Vector3.up));
     }
 
 

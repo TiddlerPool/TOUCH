@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using AnimationTween;
+using MyAudio;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.UIElements;
@@ -9,7 +10,9 @@ public class Hammer : Enemy
 {
     public bool enableUpdate;
     public bool resetNeck;
-
+    
+    public AudioSource MeleeAudio;
+    public AudioSource LazerAudio;
     public GameObject BackStele;
     public GameObject Bullet;
     public GameObject TrampleHitBox;
@@ -33,7 +36,7 @@ public class Hammer : Enemy
         base.Start();
         Assaults = new AssaultData[] {MeleeData,ShootData, LazerData };
         Array.Sort(Assaults, new IntValueComparer());
-        Health = MaxHealth;
+        //Health = MaxHealth;
         LazerStart = eyes.position;
         LazerTarget = LazerStart;
     }
@@ -101,6 +104,7 @@ public class Hammer : Enemy
         }
 
         Instantiate(TramplePartical, leg.FootIK_f_r.position, Quaternion.identity);
+        MeleeAudio.Play();
         GameObject trampleBox = Instantiate(TrampleHitBox, leg.FootIK_f_r.position, Quaternion.identity);
         trampleBox.GetComponent<HitBox_Enemy>().self = this;
         yield return null;
@@ -161,6 +165,7 @@ public class Hammer : Enemy
             beam.GetComponent<Bullet>().shooterID = GetComponent<EntityFactions>().FactionID;
             print("Shoot!");
             yield return new WaitForSeconds(0.2f);
+            AudioManager.PlayAudio("shield3");
         }
 
         while (NeckConstraint.weight > 0.09f)
@@ -227,6 +232,7 @@ public class Hammer : Enemy
 
         float time = 0f;
         float duration = 3.5f;
+        LazerAudio.Play();
         LazerPartical.Play();
         while(time < duration)
         {
@@ -249,6 +255,7 @@ public class Hammer : Enemy
         data.weight -= 4;
         moveable = true;
         attackIsOver = true;
+        LazerAudio.Stop();
         LazerPartical.Stop();
         data.Hitbox.SetActive(false);
         nextAttack = Time.time + Assaults[0].colddown;

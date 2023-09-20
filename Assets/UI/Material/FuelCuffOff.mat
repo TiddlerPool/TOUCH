@@ -51,7 +51,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Clip: 1
+    - _Clip: 0.67999536
     - _MaxRemap: 0.66
     - _OffSet: -2.93
     - _QueueControl: 0

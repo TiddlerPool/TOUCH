@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyAudio;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -78,6 +79,7 @@ public class Bullet : MonoBehaviour
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
             Vector3 pos = contact.point;
             Instantiate(HitPartical, pos, rot);
+            AudioManager.PlayAudio("bullet");
             Debug.Log("Beam Hit and Explode");
             Destroy(gameObject);
         }

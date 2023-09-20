@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d680a6d006b740ad9c714d629c5a4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lazerAudio: {fileID: 0}
   Emitting: 0
   enableEmi: 0
   player: {fileID: 0}
@@ -426,7 +427,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2044809912898422055
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -443,7 +444,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2044809912898422052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2223,6 +2225,7 @@ MonoBehaviour:
   CameraAngleOverride: 0
   LockCameraPosition: 1
   _aimCamera: {fileID: 2044809913206100599}
+  _sprintAudio: {fileID: 0}
   _sprintPartical: {fileID: 5437349542758604127}
   head: {fileID: 3625858667131971923}
 --- !u!114 &4836047928814974705

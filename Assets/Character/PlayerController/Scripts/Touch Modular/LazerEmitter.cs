@@ -5,6 +5,7 @@ using AnimationTween;
 
 public class LazerEmitter : MonoBehaviour
 {
+    public AudioSource lazerAudio;
     public bool Emitting;
     [SerializeField]private bool enableEmi;
     Vector3 LazerStart;
@@ -21,6 +22,7 @@ public class LazerEmitter : MonoBehaviour
         player = GameObject.Find("PlayerCapsule").transform;
     }
 
+    private bool audioPlayed;
     void Update()
     {
         if (Emitting && !enableEmi)
@@ -45,6 +47,17 @@ public class LazerEmitter : MonoBehaviour
             LazerPartical.Stop();
         }
 
+        if (Emitting && !audioPlayed)
+        {
+            lazerAudio.Play();
+            audioPlayed = true;
+        }
+        else if (!Emitting)
+        {
+            lazerAudio.Stop();
+            audioPlayed = false;
+        }
+        
         LazerLine.SetPosition(0, LazerStart);
         LazerLine.SetPosition(1, LazerTarget);
     }

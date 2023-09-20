@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animState: 0
+  enemyName: Cannon
   health: 2
   maxHealth: 2
   isDead: 0

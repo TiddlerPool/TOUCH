@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyAudio;
 using UnityEngine.Animations.Rigging;
 using UnityEngine;
 
@@ -26,10 +27,21 @@ public class Cannon : Enemy
         Assaults = new AssaultData[] {ShootData};
     }
 
+    private bool activePlayed;
     public override void TraitUpdater()
     {
         base.TraitUpdater();
         CannonRotate();
+        if (CurrentTarget != null && !activePlayed)
+        {
+            //print("Notied");
+            AudioManager.PlayAudio("active1");
+            activePlayed = true;
+        }
+        else if(TargetList.Count == 0)
+        {
+            activePlayed = false;
+        }
     }
 
     private void CannonRotate() {

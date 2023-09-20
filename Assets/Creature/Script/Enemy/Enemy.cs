@@ -15,8 +15,10 @@ public partial class Enemy : MonoBehaviour, IDamageable
     public AttackState AttackState = new AttackState();
 
     [Header("Settings")]
+    public string enemyName;
     [SerializeField] private float health;
     [SerializeField] private float maxHealth;
+    [SerializeField] protected bool isBoss;
     [SerializeField] protected bool isDead;
     [SerializeField] protected bool territorial;
     [SerializeField] protected bool moveable;
@@ -112,20 +114,10 @@ public partial class Enemy : MonoBehaviour, IDamageable
         DamageManager();
         EnemyVision();
         TraitUpdater();
+        PlayerStateUpdate();
         AttackRange = Assaults[0].range;
         AttackDamage = Assaults[0].damage;
         currentState.OnUpdate(this);
-    }
-
-    private void OnEnable()
-    {
-        //int entityID = entityManager.RegisterEntity(gameObject);
-        //Debug.Log("Registered with ID: " + entityID);
-    }
-
-    private void OnDisable()
-    {
-        //entityManager.UnregisterEntity(gameObject);
     }
 
     public void EnemyMove()
@@ -157,6 +149,15 @@ public partial class Enemy : MonoBehaviour, IDamageable
                         if (!TargetList.Contains(collision.transform))
                         {
                             TargetList.Add(collision.transform);
+                            if (collision.CompareTag("Player"))
+                            {
+                                lockPlayer = true;
+                                if (isBoss)
+                                {
+                                    StateManager.manager.bossData = this;
+                                }
+                            }
+                                
                         }
                     }
                     else if (faction.FactionID == 1 && dis <= MinSensingRange)
@@ -164,6 +165,14 @@ public partial class Enemy : MonoBehaviour, IDamageable
                         if (!TargetList.Contains(collision.transform))
                         {
                             TargetList.Add(collision.transform);
+                            if (collision.CompareTag("Player"))
+                            {
+                                lockPlayer = true;
+                                if (isBoss)
+                                {
+                                    StateManager.manager.bossData = this;
+                                }
+                            }
                         }
                     }
                 }  
@@ -183,9 +192,23 @@ public partial class Enemy : MonoBehaviour, IDamageable
                 {
                     if (CurrentTarget == TargetList[i])
                         CurrentTarget = null;
+                    ResetState(TargetList[i]);
                     TargetList.Remove(TargetList[i]);
+
                 }
-                
+            }
+        }
+    }
+
+    private void ResetState<T>(T obj) where T : Transform
+    {
+        if (obj.CompareTag("Player"))
+        {
+            lockPlayer = false;
+            StateManager.manager.state = State.Normal;
+            if(isBoss)
+            {
+                StateManager.manager.bossData = null;
             }
         }
     }
@@ -280,9 +303,9 @@ public partial class Enemy : MonoBehaviour, IDamageable
     {
         Debug.Log(gameObject.name + " killed");
         isDead = true;
+        lockPlayer = false;
+        StateManager.manager.state = State.Normal;
     }
-
-    
 
     public void TransitionToState(EnemyBaseState state) {
         currentState = state;
@@ -294,6 +317,15 @@ public partial class Enemy : MonoBehaviour, IDamageable
     {
         currentState = PatrolState;
         currentState.EnterState(this);
+    }
+
+    bool lockPlayer;
+    public void PlayerStateUpdate()
+    {
+        if(lockPlayer)
+        {
+            StateManager.manager.state = State.Battle;
+        }
     }
 
     IEnumerator PatrolBreakBehaviour()

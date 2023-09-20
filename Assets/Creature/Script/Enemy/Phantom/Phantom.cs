@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using AnimationTween;
+using MyAudio;
 using UnityEngine;
 
 public class Phantom : Enemy
@@ -70,6 +71,7 @@ public class Phantom : Enemy
 
         anim.SetTrigger("Attack");
 
+
         data.weight -= 1;
         moveable = true;
         attackIsOver = true;
@@ -102,6 +104,7 @@ public class Phantom : Enemy
 
         anim.SetTrigger("Skill");
         anim.SetBool("DashStart", true);
+        
         yield return new WaitForSeconds(5/6f);
 
         if (CurrentTarget != null)
@@ -123,7 +126,8 @@ public class Phantom : Enemy
         point = dashTarget.position;
         yield return null;
 
-
+        AudioManager.PlayAudio("phantom");
+        
         float chargeDuration = 3/4f;
         float timeCharge = 0f;
         while(timeCharge<chargeDuration)

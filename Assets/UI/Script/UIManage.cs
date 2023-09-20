@@ -6,10 +6,11 @@ public class UIManage : MonoBehaviour
 {
     // Start is called before the first frame update
     public AudioSource audioSource;
+    public GameObject about;
     void Start()
     {
         Cursor.visible= true;
-        
+        about.SetActive(false);
     }
 
     // Update is called once per frame
@@ -18,9 +19,9 @@ public class UIManage : MonoBehaviour
         
     }
 
-    public void AboutDisplay()
+    public void DisplayClose()
     {
-        
+        about.SetActive(false);
     }
     
     public void StartGame()
@@ -33,7 +34,8 @@ public class UIManage : MonoBehaviour
     {
         //audioSource.clip = audioClip1;
         audioSource.Play();
-        SceneManager.LoadScene("About");
+        about.SetActive(true);
+        //SceneManager.LoadScene("About");
     }
     public void Close()
     {

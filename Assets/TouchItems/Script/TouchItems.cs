@@ -5,7 +5,7 @@ using UnityEngine.Animations.Rigging;
 using StarterAssets;
 using UnityChan;
 using Unity.VisualScripting;
-
+using MyAudio;
 
 public class TouchItems : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class TouchItems : MonoBehaviour
     [Header("ConstructSettings")]
     public bool debug;
     [Range(0,5)]public float reachDsitance;
+    public string audioName;
     public Light topLight;
     public Light tempLight;
     public Animator anim;
@@ -47,6 +48,7 @@ public class TouchItems : MonoBehaviour
     public float fadeSpeed;
     public float damageBoost;
 
+    //private bool isTouch = false;
     private void Awake()
     {
         GetComponent<CapsuleCollider>().radius = lightRadius;
@@ -69,8 +71,23 @@ public class TouchItems : MonoBehaviour
         HintSync();
         LifeSpanTimer();
         RechargeTimer();
+        PlayAudio();
     }
 
+    private bool audioPlayed = false;
+    private void PlayAudio()
+    {
+        if (anim.GetBool("growing") && !audioPlayed)
+        {
+            AudioManager.PlayAudio("touch");
+            AudioManager.PlayAudio(audioName);
+            audioPlayed = true;
+        }
+        else if(!anim.GetBool("growing"))
+        {
+            audioPlayed = false;
+        }
+    }
     private void RenderRange()
     {
         if (debug)
@@ -142,7 +159,9 @@ public class TouchItems : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("Player"))
+        {
+//            isTouch = true;
             playerTrans = other.transform;
             inrange = true;
         }
@@ -161,6 +180,7 @@ public class TouchItems : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+//            isTouch = false;
             playerTrans = null;
             inrange = false;
         }
@@ -179,10 +199,11 @@ public class TouchItems : MonoBehaviour
         }    
     }
 
-    public virtual void Growing() {
+    public virtual void Growing() 
+    {
         var radius = Shader.GetGlobalFloat("_Radius");
-        if (reachable && touched && !needRecharge) {
-
+        if (reachable && touched && !needRecharge) 
+        {
             RecoverSan(sanRecoverSpeed);
 
             Shader.SetGlobalVector("_Position", sphereTrans.position);
@@ -205,6 +226,8 @@ public class TouchItems : MonoBehaviour
 
                 Shader.SetGlobalFloat("_Radius", r);
                 anim.SetBool("growing", true);
+                
+                
             }
 
             bottomSphere.GetComponent<Collider>().enabled = true;

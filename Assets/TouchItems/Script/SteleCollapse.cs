@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyAudio;
 using UnityEngine;
 
 public class SteleCollapse : MonoBehaviour
@@ -42,6 +43,7 @@ public class SteleCollapse : MonoBehaviour
         if(stele.CurrentLifeSpan < 0.01f)
         {
             Instantiate(CollapsePartical, transform.position, Quaternion.Euler(-90, 0, 0));
+            AudioManager.PlayAudio("rock");
             stele.touchSign.SetActive(false);
             Tower.Progress++;
             Tower.GoProgress();
